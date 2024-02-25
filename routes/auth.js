@@ -87,7 +87,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/test", (req, res) => {
-  res.json({ success: true, message: "All good" });
+  res.status(201).json({ success: true, message: "All good" });
 });
 
 module.exports = router;
