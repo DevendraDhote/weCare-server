@@ -4,13 +4,13 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const port = 3000;
+const port = process.env.PORT;
 app.use(cors());
 app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
 mongoose.connect(
-  "mongodb+srv://devendra:Dev0000@cluster0.lsp88y3.mongodb.net/userLoggedIn",
+  process.env.DATABASE_URL,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
