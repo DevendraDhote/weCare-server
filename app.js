@@ -51,7 +51,7 @@ const authRouter = require("./routes/auth");
 app.use("/", authRouter);
 
 app.get("/", (req, res) => {
-  res.json(`API is running on ${port}`);
+  res.json(`API is running on ${port}`);  
 });
 
 app.listen(port, () => {
