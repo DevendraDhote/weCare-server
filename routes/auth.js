@@ -15,14 +15,14 @@ router.post("/register", async (req, res) => {
     const exixtingUser = await User.findOne({ email });
 
     if (exixtingUser) {
-      return res.status(400).json({ error: "user already exist" });
+      return res.status(400).json({ message: "user already exist", success:false });
     }
 
     const newUser = new User({ username, email });
     User.register(newUser, password, async (err, user) => {
       if (err) {
         console.error("Error registering user : ", err);
-        return res.status(500).json({ error: "Failed to register user" });
+        return res.status(500).json({ meggase: "Failed to register user", success:false });
       }
       const verificationToken = generateToken();
       user.verificationToken = verificationToken;
@@ -38,7 +38,7 @@ router.post("/register", async (req, res) => {
     });
   } catch (error) {
     console.error(error, "error hai bawa");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", succes:false });
   }
 });
 
@@ -49,7 +49,7 @@ function generateToken() {
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
-      return res.status(500).json({ success: false, error: err.message });
+      return res.status(500).json({ success: false, message: err.message });
     }
 
     if (!user) {
@@ -60,7 +60,7 @@ router.post("/login", (req, res, next) => {
       if (loginErr) {
         return res
           .status(500)
-          .json({ success: false, error: loginErr.message });
+          .json({ success: false, message: loginErr.message });
       }
 
       return res.json({ success: true, user });
